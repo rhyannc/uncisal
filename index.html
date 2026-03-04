@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Residência em Dermatologia · R1/R2/R3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #050810;
+            --surface: #0b1120;
+            --card: #0f1929;
+            --card2: #111e30;
+            --border: #1a2d4a;
+            --accent: #00d4ff;
+            --accent2: #0284c7;
+            --accent3: #10b981;
+            /* Green for done */
+            --accent4: #0ea5e9;
+            --accent5: #bae6fd;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --danger: #ef4444;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, .04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, .04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridShift 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridShift {
+            to {
+                background-position: 40px 40px;
+            }
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .13;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 18s ease-in-out infinite alternate;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -120px;
+            left: -120px;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent2);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -9s;
+        }
+
+        @keyframes drift {
+            to {
+                transform: translate(40px, 40px);
+            }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* ── Header ── */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .dna-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: pulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 18px var(--accent));
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.08)
+            }
+        }
+
+        header h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        header p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: .95rem;
+            letter-spacing: .5px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 4px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(0, 212, 255, .07);
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .share-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .share-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .share-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* ── Year pills ── */
+        .year-pills {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .year-pill {
+            padding: 8px 22px;
+            border-radius: 999px;
+            border: 1.5px solid;
+            font-size: .82rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .year-pill.done {
+            border-color: var(--accent3);
+            color: var(--accent3);
+            background: rgba(16, 185, 129, .08);
+        }
+
+        .year-pill.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0, 212, 255, .08);
+            box-shadow: 0 0 18px rgba(0, 212, 255, .2);
+            animation: pillGlow 2s ease-in-out infinite alternate;
+        }
+
+        .year-pill.future {
+            border-color: var(--muted);
+            color: var(--muted);
+            background: transparent;
+        }
+
+        @keyframes pillGlow {
+            to {
+                box-shadow: 0 0 28px rgba(0, 212, 255, .35);
+            }
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .pill-dot.done {
+            background: var(--accent3);
+            box-shadow: 0 0 8px var(--accent3);
+        }
+
+        .pill-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: blink 1.4s ease-in-out infinite;
+        }
+
+        .pill-dot.future {
+            background: var(--muted);
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .2
+            }
+        }
+
+        /* ── Live Countdown ── */
+        #live-block {
+            background: linear-gradient(135deg, #0b1829, #0f1f36);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 24px 28px;
+            text-align: center;
+            margin-bottom: 32px;
+            box-shadow: 0 0 60px rgba(0, 212, 255, .06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #live-block::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, .04), transparent 50%, rgba(2, 132, 199, .04));
+            pointer-events: none;
+        }
+
+        #live-block .label {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .countdown-unit .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            text-shadow: 0 0 30px rgba(0, 212, 255, .5);
+            transition: transform .2s;
+        }
+
+        .countdown-unit .num.tick {
+            transform: scale(1.06);
+        }
+
+        .countdown-unit .sep {
+            font-size: 2.5rem;
+            color: var(--border);
+            line-height: 1;
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+
+        .countdown-unit .unit-label {
+            font-size: .65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .status-line {
+            margin-top: 20px;
+            font-size: .85rem;
+            color: var(--accent3);
+            font-weight: 500;
+        }
+
+        .status-line span#phase-label {
+            background: rgba(16, 185, 129, .15);
+            border: 1px solid rgba(16, 185, 129, .3);
+            border-radius: 6px;
+            padding: 2px 10px;
+        }
+
+        /* ── Stats grid ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .stat-card.c1::after {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+        }
+
+        .stat-card.c2::after {
+            background: linear-gradient(90deg, var(--accent2), var(--danger));
+        }
+
+        .stat-card.c3::after {
+            background: linear-gradient(90deg, var(--accent3), var(--accent));
+        }
+
+        .stat-card.c4::after {
+            background: linear-gradient(90deg, var(--accent4), var(--danger));
+        }
+
+        .stat-card.c5::after {
+            background: linear-gradient(90deg, var(--accent5), var(--accent4));
+        }
+
+        .stat-card .stat-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-card.c1 .stat-value {
+            color: var(--accent);
+        }
+
+        .stat-card.c2 .stat-value {
+            color: var(--accent2);
+        }
+
+        .stat-card.c3 .stat-value {
+            color: var(--accent3);
+        }
+
+        .stat-card.c4 .stat-value {
+            color: var(--accent4);
+        }
+
+        .stat-card.c5 .stat-value {
+            color: var(--accent5);
+        }
+
+        .stat-card .stat-sub {
+            margin-top: 8px;
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        /* ── Progress bars ── */
+        .progress-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px 28px;
+            margin-bottom: 32px;
+        }
+
+        .progress-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .progress-item {
+            margin-bottom: 28px;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .progress-title {
+            font-size: .95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .progress-pct {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .bar-track {
+            background: rgba(255, 255, 255, .05);
+            border-radius: 999px;
+            height: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            position: relative;
+            transition: width 1.8s cubic-bezier(.22, .68, 0, 1.2);
+        }
+
+        .bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .25));
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                opacity: 0
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .bar-glow {
+            position: relative;
+        }
+
+        .bar-glow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            filter: blur(8px);
+            opacity: .6;
+            z-index: -1;
+        }
+
+        .bar-r1 .bar-fill {
+            background: linear-gradient(90deg, #10b981, #34d399);
+            /* Verde */
+        }
+
+        .bar-r1 .bar-glow::before {
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+
+        .bar-r2 .bar-fill {
+            background: linear-gradient(90deg, var(--accent3), var(--accent));
+        }
+
+        .bar-r2 .bar-glow::before {
+            background: linear-gradient(90deg, var(--accent3), var(--accent));
+        }
+
+        .bar-r3 .bar-fill {
+            background: linear-gradient(90deg, var(--accent), var(--accent4));
+        }
+
+        .bar-r3 .bar-glow::before {
+            background: linear-gradient(90deg, var(--accent), var(--accent4));
+        }
+
+        .bar-total .bar-fill {
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+        }
+
+        .bar-total .bar-glow::before {
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+        }
+
+        .progress-sub {
+            margin-top: 8px;
+            font-size: .75rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ── Timeline ── */
+        .timeline {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px 28px;
+            margin-bottom: 32px;
+        }
+
+        .timeline h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .tl-list {
+            list-style: none;
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .tl-list::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(var(--accent3), var(--accent));
+            border-radius: 2px;
+            opacity: .4;
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 22px;
+            padding: 16px 18px;
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .tl-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        .tl-item.done::before {
+            background: var(--accent3);
+            border-color: var(--accent3);
+            box-shadow: 0 0 12px var(--accent3);
+        }
+
+        .tl-item.active::before {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            animation: blink 1.4s ease-in-out infinite;
+        }
+
+        .tl-item.future::before {
+            background: var(--card);
+            border-color: var(--muted);
+        }
+
+        .tl-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            font-weight: 700;
+            color: var(--muted);
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .tl-title {
+            font-size: .95rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .tl-desc {
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .tl-item.done .tl-title {
+            color: var(--accent3);
+        }
+
+        .tl-item.active .tl-title {
+            color: var(--accent);
+        }
+
+        .tl-item.future .tl-title {
+            color: var(--text);
+        }
+
+        /* ── Info cards ── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .info-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 22px;
+            transition: transform .2s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .info-card .ic-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .info-card h3 {
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            font-size: .82rem;
+            color: var(--text);
+            line-height: 1.5;
+            display: flex;
+            gap: 8px;
+        }
+
+        .info-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card ul li::before {
+            content: '▸';
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: .75rem;
+            letter-spacing: .5px;
+        }
+
+        footer span {
+            color: var(--accent);
+        }
+
+        @media (max-width:600px) {
+            .countdown-grid {
+                gap: 8px;
+            }
+
+            .countdown-unit .num {
+                font-size: 2.5rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .progress-section,
+            .timeline {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="wrapper">
+
+        <button class="share-btn" onclick="sharePage()" title="Compartilhar Progresso">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+            </svg>
+            Compartilhar
+        </button>
+
+        <!-- Header -->
+        <header>
+            <div class="dna-icon">🧬</div>
+            <p
+                style="font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;opacity:.85;">
+                🏛️ UNCISAL &nbsp;·&nbsp; Maceió – AL
+            </p>
+            <h1>Residência em Dermatologia</h1>
+            <p>Programa de 3 anos · R1 · R2 · R3</p>
+            <span class="badge">⬤ &nbsp;R2 em andamento</span>
+        </header>
+
+        <!-- Year pills -->
+        <div class="year-pills">
+            <div class="year-pill done">
+                <span class="pill-dot done"></span>
+                R1 — 2025/2026 — Concluído ✓
+            </div>
+            <div class="year-pill active">
+                <span class="pill-dot active"></span>
+                R2 — 2026/2027 — Em andamento
+            </div>
+            <div class="year-pill future">
+                <span class="pill-dot future"></span>
+                R3 — 2027/2028 — Aguardando
+            </div>
+        </div>
+
+        <!-- Live Countdown -->
+        <div id="live-block">
+            <div class="label">⏱ Tempo restante para a formatura</div>
+            <div class="countdown-grid">
+                <div class="countdown-unit">
+                    <span class="num" id="cd-d">000</span>
+                    <span class="unit-label">Dias</span>
+                </div>
+                <div class="countdown-unit"><span class="sep">:</span></div>
+                <div class="countdown-unit">
+                    <span class="num" id="cd-h">00</span>
+                    <span class="unit-label">Horas</span>
+                </div>
+                <div class="countdown-unit"><span class="sep">:</span></div>
+                <div class="countdown-unit">
+                    <span class="num" id="cd-m">00</span>
+                    <span class="unit-label">Min</span>
+                </div>
+                <div class="countdown-unit"><span class="sep">:</span></div>
+                <div class="countdown-unit">
+                    <span class="num" id="cd-s">00</span>
+                    <span class="unit-label">Seg</span>
+                </div>
+            </div>
+            <div class="status-line">Fase atual: <span id="phase-label">Carregando…</span></div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card c1">
+                <div class="stat-label">Total da Residência</div>
+                <div class="stat-value" id="s-total">—</div>
+                <div class="stat-sub">dias no programa completo R1+R2+R3</div>
+            </div>
+            <div class="stat-card c2">
+                <div class="stat-label">Dias Decorridos</div>
+                <div class="stat-value" id="s-elapsed">—</div>
+                <div class="stat-sub">desde 01/03/2025 (início do R1)</div>
+            </div>
+            <div class="stat-card c3">
+                <div class="stat-label">Dias Restantes</div>
+                <div class="stat-value" id="s-remaining">—</div>
+                <div class="stat-sub">até 29/02/2028 (formatura)</div>
+            </div>
+            <div class="stat-card c4">
+                <div class="stat-label">No R2 Há</div>
+                <div class="stat-value" id="s-r2days">—</div>
+                <div class="stat-sub">dias desde 01/03/2026</div>
+            </div>
+            <div class="stat-card c5">
+                <div class="stat-label">Semanas Totais</div>
+                <div class="stat-value" id="s-weeks">—</div>
+                <div class="stat-sub">semanas completas desde o R1</div>
+            </div>
+        </div>
+
+        <!-- Progress bars -->
+        <div class="progress-section">
+            <h2>📊 Progresso por Ano</h2>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-dot" style="background:var(--accent3)"></span>
+                        R1 — Primeiro Ano (01/03/2025 → 28/02/2026)
+                    </div>
+                    <span class="progress-pct" id="p-r1-pct">100%</span>
+                </div>
+                <div class="bar-glow bar-r1">
+                    <div class="bar-track">
+                        <div class="bar-fill" id="p-r1" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="progress-sub">
+                    <span id="p-r1-sub-l">Concluído ✓</span>
+                    <span id="p-r1-sub-r">365 dias totais</span>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-dot" style="background:var(--accent)"></span>
+                        R2 — Segundo Ano (01/03/2026 → 28/02/2027)
+                    </div>
+                    <span class="progress-pct" id="p-r2-pct">0%</span>
+                </div>
+                <div class="bar-glow bar-r2">
+                    <div class="bar-track">
+                        <div class="bar-fill" id="p-r2" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="progress-sub">
+                    <span id="p-r2-sub-l">0 dias decorridos</span>
+                    <span id="p-r2-sub-r">365 dias totais</span>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-dot" style="background:var(--accent4)"></span>
+                        R3 — Terceiro Ano (01/03/2027 → 29/02/2028)
+                    </div>
+                    <span class="progress-pct" id="p-r3-pct">0%</span>
+                </div>
+                <div class="bar-glow bar-r3">
+                    <div class="bar-track">
+                        <div class="bar-fill" id="p-r3" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="progress-sub">
+                    <span id="p-r3-sub-l">Início em 01/03/2027</span>
+                    <span id="p-r3-sub-r">366 dias totais</span>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <span class="progress-dot" style="background:var(--accent2)"></span>
+                        Residência Completa (R1 + R2 + R3)
+                    </div>
+                    <span class="progress-pct" id="p-total-pct">0%</span>
+                </div>
+                <div class="bar-glow bar-total">
+                    <div class="bar-track">
+                        <div class="bar-fill" id="p-total" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="progress-sub">
+                    <span id="p-total-sub-l">0 dias decorridos</span>
+                    <span style="color:var(--accent2)">01/03/2025 → 29/02/2028</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <h2>🗓️ Marcos da Jornada</h2>
+            <ul class="tl-list" id="tl-list"></ul>
+        </div>
+
+
+
+        <footer>
+            Atualizado em tempo real &nbsp;·&nbsp; <span>Dermatologia</span> · R1/R2/R3 &nbsp;·&nbsp; 2025–2028
+        </footer>
+    </div>
+
+    <script>
+        // ── Datas ──
+        const R1_START = new Date(2025, 2, 1);   // 01 Mar 2025
+        const R2_START = new Date(2026, 2, 1);   // 01 Mar 2026
+        const R3_START = new Date(2027, 2, 1);   // 01 Mar 2027
+        const GRAD_DATE = new Date(2028, 1, 29);   // 29 Feb 2028
+        const END_DATE = new Date(2028, 1, 29, 23, 59, 59);
+
+        const diffDays = (a, b) => Math.round((b - a) / 86400000);
+
+        const R1_TOTAL = diffDays(R1_START, R2_START);  // 365
+        const R2_TOTAL = diffDays(R2_START, R3_START);  // 365
+        const R3_TOTAL = diffDays(R3_START, GRAD_DATE); // 366
+        const TOT_TOTAL = diffDays(R1_START, GRAD_DATE); // 1096
+
+        const pad = (n, w = 2) => String(Math.floor(n)).padStart(w, '0');
+        const fmtDate = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+        // ── Milestones ──
+        const milestones = [
+            { date: R1_START, label: 'Início do R1', desc: 'Primeiro dia da Residência em Dermatologia — 01/03/2025.', key: 'r1-start' },
+            { date: new Date(2025, 8, 1), label: '6 meses de R1', desc: 'Metade do R1 — Avaliação de desempenho clínico.', key: 'r1-mid' },
+            { date: R2_START, label: 'Início do R2', desc: 'Segundo ano iniciado — dermatologia avançada e procedimentos.', key: 'r2-start' },
+            { date: new Date(2026, 8, 1), label: '6 meses de R2', desc: 'Metade do R2 — Avaliação de competências práticas.', key: 'r2-mid' },
+            { date: R3_START, label: 'Início do R3', desc: 'Terceiro e último ano — cirurgia, cosmiatria e pesquisa.', key: 'r3-start' },
+            { date: new Date(2027, 8, 1), label: '6 meses de R3', desc: 'Reta final — procedimentos avançados e produção científica.', key: 'r3-mid' },
+            { date: GRAD_DATE, label: '🎓 Formatura — Especialista!', desc: 'Conclusão da Residência em Dermatologia · 29/02/2028', key: 'grad', isGrad: true },
+        ];
+
+        const $ = id => document.getElementById(id);
+
+        // ── Tick ──
+        function tick() {
+            const now = new Date();
+
+            // Countdown
+            const msLeft = END_DATE - now;
+            if (msLeft <= 0) {
+                ['cd-d', 'cd-h', 'cd-m', 'cd-s'].forEach(id => $(id).textContent = '00');
+                $('phase-label').textContent = '🎉 Parabéns, Especialista em Dermatologia!';
+            } else {
+                const sec = msLeft / 1000;
+                const prevS = $('cd-s').textContent;
+                $('cd-d').textContent = pad(Math.floor(sec / 86400), 3);
+                $('cd-h').textContent = pad(Math.floor((sec % 86400) / 3600));
+                $('cd-m').textContent = pad(Math.floor((sec % 3600) / 60));
+                $('cd-s').textContent = pad(sec % 60);
+                if (prevS !== $('cd-s').textContent) {
+                    const el = $('cd-s');
+                    el.classList.add('tick');
+                    setTimeout(() => el.classList.remove('tick'), 200);
+                }
+            }
+
+            // Elapsed desde R1
+            const totalElapsed = Math.max(0, Math.floor((now - R1_START) / 86400000));
+            const remainDays = Math.max(0, diffDays(now, GRAD_DATE));
+
+            $('s-total').textContent = TOT_TOTAL;
+            $('s-elapsed').textContent = totalElapsed;
+            $('s-remaining').textContent = remainDays;
+            $('s-weeks').textContent = Math.floor(totalElapsed / 7);
+
+            // Dias no R2
+            const r2days = now >= R2_START ? Math.max(0, Math.floor((now - R2_START) / 86400000)) : 0;
+            $('s-r2days').textContent = r2days;
+
+            // Phase label
+            if (now < R1_START) $('phase-label').textContent = 'Aguardando início do R1';
+            else if (now < R2_START) $('phase-label').innerHTML = '<span id="phase-label">R1 — Primeiro Ano</span>';
+            else if (now < R3_START) $('phase-label').innerHTML = '<span id="phase-label">R2 — Segundo Ano de Residência</span>';
+            else if (now <= GRAD_DATE) $('phase-label').innerHTML = '<span id="phase-label">R3 — Terceiro Ano de Residência</span>';
+            else $('phase-label').textContent = '🎓 Formatura Concluída!';
+
+            // R1 bar (always 100% once done)
+            const r1Elapsed = Math.min(Math.max(0, Math.floor((now - R1_START) / 86400000)), R1_TOTAL);
+            const r1Pct = (r1Elapsed / R1_TOTAL * 100).toFixed(1);
+            $('p-r1').style.width = r1Pct + '%';
+            $('p-r1-pct').textContent = r1Pct + '%';
+            $('p-r1-sub-l').textContent = now >= R2_START ? 'Concluído ✓ (365 dias)' : r1Elapsed + ' dias decorridos';
+            $('p-r1-sub-r').textContent = R1_TOTAL + ' dias totais';
+
+            // R2 bar
+            const r2Elapsed = Math.min(Math.max(0, Math.floor((now - R2_START) / 86400000)), R2_TOTAL);
+            const r2Pct = now >= R2_START ? (r2Elapsed / R2_TOTAL * 100).toFixed(1) : '0.0';
+            $('p-r2').style.width = r2Pct + '%';
+            $('p-r2-pct').textContent = r2Pct + '%';
+            $('p-r2-sub-l').textContent = now >= R2_START ? r2Elapsed + ' dias decorridos' : 'Início em 01/03/2026';
+            $('p-r2-sub-r').textContent = R2_TOTAL + ' dias totais';
+
+            // R3 bar
+            let r3Elapsed = 0, r3Pct = '0.0';
+            if (now >= R3_START) {
+                r3Elapsed = Math.min(Math.floor((now - R3_START) / 86400000), R3_TOTAL);
+                r3Pct = (r3Elapsed / R3_TOTAL * 100).toFixed(1);
+                $('p-r3-sub-l').textContent = r3Elapsed + ' dias decorridos';
+            } else {
+                $('p-r3-sub-l').textContent = 'Início em 01/03/2027';
+            }
+            $('p-r3').style.width = r3Pct + '%';
+            $('p-r3-pct').textContent = r3Pct + '%';
+            $('p-r3-sub-r').textContent = R3_TOTAL + ' dias totais';
+
+            // Total bar
+            const totPct = (Math.min(totalElapsed, TOT_TOTAL) / TOT_TOTAL * 100).toFixed(1);
+            $('p-total').style.width = totPct + '%';
+            $('p-total-pct').textContent = totPct + '%';
+            $('p-total-sub-l').textContent = Math.min(totalElapsed, TOT_TOTAL) + ' dias decorridos';
+        }
+
+        // ── Timeline ──
+        function buildTimeline() {
+            const now = new Date();
+            const ul = $('tl-list');
+            ul.innerHTML = '';
+            milestones.forEach(m => {
+                let state;
+                if (m.isGrad) state = 'future';
+                else if (now >= m.date) state = 'done';
+                else state = 'future';
+
+                // Current active: the next upcoming milestone in the running year
+                if (now >= R1_START && now < R2_START && m.key.startsWith('r1') && now < m.date) state = 'active';
+                if (now >= R2_START && now < R3_START && m.key.startsWith('r2') && now < m.date) state = 'active';
+                if (now >= R3_START && now < GRAD_DATE && m.key.startsWith('r3') && now < m.date) state = 'active';
+
+                const daysRel = diffDays(now, m.date);
+                const relStr = m.date <= now
+                    ? `✓ há ${Math.abs(daysRel)} dias`
+                    : `em ${daysRel} dias`;
+                const li = document.createElement('li');
+                li.className = `tl-item ${state}`;
+                li.innerHTML = `
+          <div class="tl-date">${fmtDate(m.date)} &nbsp;·&nbsp; ${relStr}</div>
+          <div class="tl-title">${m.label}</div>
+          <div class="tl-desc">${m.desc}</div>
+        `;
+                ul.appendChild(li);
+            });
+        }
+
+        function sharePage() {
+            const now = new Date();
+            const remainDays = Math.max(0, diffDays(now, GRAD_DATE));
+            let r3Elapsed = 0;
+            if (now >= R3_START) {
+                r3Elapsed = Math.min(Math.floor((now - R3_START) / 86400000), R3_TOTAL);
+            }
+
+            const shareText = `*Residência em Dermatologia · UNCISAL* 🧬\n\n🎯 *Faltam:* ${remainDays} dias para o Título de Especialista!\n🗓️ *Tempo no R3:* ${r3Elapsed} de ${R3_TOTAL} dias concluídos\n\nAcompanhe a contagem regressiva em tempo real 👇`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Residência em Dermatologia',
+                    text: shareText,
+                    url: window.location.href,
+                }).catch((error) => console.log('Erro ao compartilhar', error));
+            } else {
+                navigator.clipboard.writeText(shareText + '\n' + window.location.href);
+                alert('Mensagem e link copiados para a área de transferência!');
+            }
+        }
+
+        buildTimeline();
+        tick();
+        setInterval(tick, 1000);
+        setInterval(buildTimeline, 60000);
+    </script>
+</body>
+
+</html>
