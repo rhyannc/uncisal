@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -797,10 +797,20 @@
         @media (max-width:600px) {
             .countdown-grid {
                 gap: 6px;
+                flex-wrap: nowrap;
+            }
+
+            .countdown-unit {
+                min-width: 0;
             }
 
             .countdown-unit .num {
                 font-size: 1.6rem;
+            }
+
+            .countdown-unit .sep {
+                font-size: 1.6rem;
+                margin-top: 4px;
             }
 
             .stat-card .stat-value {
@@ -810,6 +820,29 @@
             .progress-section,
             .timeline {
                 padding: 22px 18px;
+            }
+
+            .progress-header {
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .progress-title {
+                display: block;
+                flex: 1;
+                min-width: 0;
+                font-size: 0.72rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+
+            .progress-title .progress-dot {
+                display: inline-block;
+                margin-right: 6px;
+                vertical-align: middle;
             }
         }
     </style>
@@ -1191,7 +1224,4 @@
     </script>
 </body>
 
-
 </html>
-
-
