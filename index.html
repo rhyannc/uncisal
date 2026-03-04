@@ -1151,12 +1151,26 @@
         function sharePage() {
             const now = new Date();
             const remainDays = Math.max(0, diffDays(now, GRAD_DATE));
-            let r3Elapsed = 0;
+            let rYear = '';
+            let rElapsed = 0;
+            let rTotal = 0;
+
             if (now >= R3_START) {
-                r3Elapsed = Math.min(Math.floor((now - R3_START) / 86400000), R3_TOTAL);
+                rYear = 'R3';
+                rTotal = R3_TOTAL;
+                rElapsed = Math.min(Math.floor((now - R3_START) / 86400000), rTotal);
+            } else if (now >= R2_START) {
+                rYear = 'R2';
+                rTotal = R2_TOTAL;
+                rElapsed = Math.min(Math.floor((now - R2_START) / 86400000), rTotal);
+            } else {
+                rYear = 'R1';
+                rTotal = R1_TOTAL;
+                rElapsed = Math.min(Math.floor((now - R1_START) / 86400000), rTotal);
+                rElapsed = Math.max(0, rElapsed);
             }
 
-            const shareText = `*Residência em Dermatologia · UNCISAL* 🧬\n\n🎯 *Faltam:* ${remainDays} dias para o Título de Especialista!\n🗓️ *Tempo no R3:* ${r3Elapsed} de ${R3_TOTAL} dias concluídos\n\nAcompanhe a contagem regressiva em tempo real 👇`;
+            const shareText = `*Residência em Dermatologia · UNCISAL* 🧬\n\n🎯 *Faltam:* ${remainDays} dias para o Título de Especialista!\n🗓️ *Tempo no ${rYear}:* ${rElapsed} de ${rTotal} dias concluídos!\n\nAcompanhe a contagem regressiva em tempo real 👇`;
 
             if (navigator.share) {
                 navigator.share({
@@ -1179,3 +1193,4 @@
 
 
 </html>
+
